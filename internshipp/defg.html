@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Quiz App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .answers {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .answer {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .answer:hover {
+      background-color: #0056b3;
+    }
+    .correct-answer {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    .wrong-answer {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Simple Quiz App</h1>
+    <div class="question">What is the capital of France?</div>
+    <div class="answers">
+      <button class="answer" onclick="checkAnswer(this)">Paris</button>
+      <button class="answer" onclick="checkAnswer(this)">London</button>
+      <button class="answer" onclick="checkAnswer(this)">Berlin</button>
+      <button class="answer" onclick="checkAnswer(this)">Madrid</button>
+    </div>
+    <div class="result" id="resultDisplay"></div>
+  </div>
+
+  <script>
+    function checkAnswer(element) {
+      const correctAnswer = "Paris"; // Define the correct answer here
+      const selectedAnswer = element.textContent;
+
+      if (selectedAnswer === correctAnswer) {
+        document.getElementById('resultDisplay').textContent = 'Correct!';
+        element.classList.add('correct-answer');
+      } else {
+        document.getElementById('resultDisplay').textContent = 'Wrong!';
+        element.classList.add('wrong-answer');
+
+        // Find and highlight the correct answer
+        const answers = document.getElementsByClassName('answer');
+        for (let i = 0; i < answers.length; i++) {
+          if (answers[i].textContent === correctAnswer) {
+            answers[i].classList.add('correct-answer');
+            break;
+          }
+        }
+      }
+
+      // Disable further clicks after answering
+      const answers = document.getElementsByClassName('answer');
+      for (let i = 0; i < answers.length; i++) {
+        answers[i].disabled = true;
+      }
+    }
+  </script>
+</body>
+</html>

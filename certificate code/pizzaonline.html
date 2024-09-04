@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Pizza Ordering System</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #ff6347;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            width: 30%;
+            padding: 10px;
+            border: 2px solid #ff6347;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+            background-color: #ffe4e1;
+        }
+
+        .menu-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .menu-item h3 {
+            margin: 10px 0;
+            font-size: 1.5em;
+            color: #ff6347;
+        }
+
+        .menu-item p {
+            font-size: 1em;
+            color: #666;
+        }
+
+        .menu-item select,
+        .menu-item input[type="checkbox"] {
+            margin: 10px 0;
+        }
+
+        .menu-item button {
+            padding: 10px 20px;
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item button:hover {
+            background-color: #ff4500;
+        }
+
+        .preview-section {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ff6347;
+            border-radius: 10px;
+            background-color: #ffe4e1;
+        }
+
+        .cart {
+            margin-top: 30px;
+            border-top: 2px solid #ff6347;
+            padding-top: 20px;
+        }
+
+        .cart h3 {
+            color: #ff6347;
+        }
+
+        .cart p {
+            color: #666;
+        }
+
+        .cart button {
+            padding: 10px 20px;
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cart button:hover {
+            background-color: #ff4500;
+        }
+
+        .login-section {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        .login-section h3 {
+            color: #ff6347;
+            text-align: center;
+        }
+
+        .login-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-section button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-section button:hover {
+            background-color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Online Pizza Ordering System
+    </div>
+
+    <div class="container">
+        <div class="login-section">
+            <h3>Login</h3>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="menu" class="menu-section" style="display:none;">
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/300x200?text=Pepperoni+Pizza" alt="Pepperoni Pizza" id="pepperoniImg">
+                <h3>Pepperoni Pizza</h3>
+                <p>$12.99</p>
+                <label for="pepperoniToppings">Select Toppings:</label>
+                <select id="pepperoniToppings" onchange="previewPizza('pepperoniImg', 'Pepperoni Pizza')">
+                    <option value="">--Select Topping--</option>
+                    <option value="Mushrooms">Mushrooms</option>
+                    <option value="Olives">Olives</option>
+                    <option value="Onions">Onions</option>
+                </select>
+                <br>
+                <input type="checkbox" id="pepperoniCheese" onchange="previewPizza('pepperoniImg', 'Pepperoni Pizza')"> Add Extra Cheese
+                <br>
+                <button onclick="addToCart('Pepperoni Pizza', 12.99, 'pepperoniToppings', 'pepperoniCheese')">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/300x200?text=Margherita+Pizza" alt="Margherita Pizza" id="margheritaImg">
+                <h3>Margherita Pizza</h3>
+                <p>$10.99</p>
+                <label for="margheritaToppings">Select Toppings:</label>
+                <select id="margheritaToppings" onchange="previewPizza('margheritaImg', 'Margherita Pizza')">
+                    <option value="">--Select Topping--</option>
+                    <option value="Basil">Basil</option>
+                    <option value="Tomatoes">Tomatoes</option>
+                    <option value="Spinach">Spinach</option>
+                </select>
+                <br>
+                <input type="checkbox" id="margheritaCheese" onchange="previewPizza('margheritaImg', 'Margherita Pizza')"> Add Extra Cheese
+                <br>
+                <button onclick="addToCart('Margherita Pizza', 10.99, 'margheritaToppings', 'margheritaCheese')">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/300x200?text=BBQ+Chicken+Pizza" alt="BBQ Chicken Pizza" id="bbqImg">
+                <h3>BBQ Chicken Pizza</h3>
+                <p>$14.99</p>
+                <label for="bbqToppings">Select Toppings:</label>
+                <select id="bbqToppings" onchange="previewPizza('bbqImg', 'BBQ Chicken Pizza')">
+                    <option value="">--Select Topping--</option>
+                    <option value="Red Onions">Red Onions</option>
+                    <option value="Green Peppers">Green Peppers</option>
+                    <option value="Pineapple">Pineapple</option>
+                </select>
+                <br>
+                <input type="checkbox" id="bbqCheese" onchange="previewPizza('bbqImg', 'BBQ Chicken Pizza')"> Add Extra Cheese
+                <br>
+                <button onclick="addToCart('BBQ Chicken Pizza', 14.99, 'bbqToppings', 'bbqCheese')">Add to Cart</button>
+            </div>
+        </div>
+
+        <div id="preview" class="preview-section" style="display:none;">
+            <h3>Pizza Preview</h3>
+            <img src="" alt="Pizza Preview" id="previewImg" style="width: 300px; border-radius: 10px;">
+            <p id="previewText"></p>
+        </div>
+
+        <div id="cart" class="cart" style="display:none;">
+            <h3>Shopping Cart</h3>
+            <p id="cartItems">No items in cart.</p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username && password) {
+                document.querySelector('.login-section').style.display = 'none';
+                document.getElementById("menu").style.display = 'flex';
+                document.getElementById("cart").style.display = 'block';
+            } else {
+                alert("Please enter both username and password.");
+            }
+        }
+
+        function previewPizza(imgId, pizzaName) {
+            let toppingsSelect = document.getElementById(pizzaName.toLowerCase().replace(' ', '') + 'Toppings');
+            let extraCheese = document.getElementById(pizzaName.toLowerCase().replace(' ', '') + 'Cheese').checked;
+            let toppings = toppingsSelect.value ? toppingsSelect.value : "No Toppings";
+            let cheese = extraCheese ? "with Extra Cheese" : "without Extra Cheese";
+
+            document.getElementById("previewImg").src = document.getElementById(imgId).src;
+            document.getElementById("previewText").innerText = `${pizzaName} (${toppings}, ${cheese})`;
+            document.getElementById("preview").style.display = "block";
+        }
+
+        let cart = [];
+
+        function addToCart(item, price, toppingsId, cheeseId) {
+            let toppings = document.getElementById(toppingsId).value;
+            let extraCheese = document.getElementById(cheeseId).checked ? "with Extra Cheese" : "without Extra Cheese";
+            cart.push({ item, price, toppings, extraCheese });
+            displayCart();
+        }
+
+        function displayCart() {
+            if (cart.length === 0) {
+                document.getElementById("cartItems").innerText = "No items in cart.";
+            } else {
+                let cartContent = cart.map(cartItem => `${cartItem.item} (${cartItem.toppings}, ${cartItem.extraCheese}): $${cartItem.price.toFixed(2)}`).join("\n");
+                document.getElementById("cartItems").innerText = cartContent;
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty.");
+            } else {
+                let total = cart.reduce((sum, item) => sum + item.price, 0);
+                alert(`Your total is $${total.toFixed(2)}. Thank you for your order!`);
+                cart = [];
+                displayCart();
+            }
+        }
+    </script>
+</body>
+</html>
